@@ -6,7 +6,7 @@ import { graphql } from "gatsby";
 const BlogPage = ({data}) => {
   return (
     <Layout pageTitle={"My Blog posts"}>
-      <ul>
+      {/* <ul>
       {
         data.allFile.nodes.map(node => (
           <li key={node.name}>
@@ -14,17 +14,41 @@ const BlogPage = ({data}) => {
           </li>
         ))
       }
-      </ul>
+      </ul> */}
+      {
+        data.allMdx.nodes.map((node) => (
+          <article key={node.id}>
+            <h2>{node.frontmatter.title}</h2>
+            <p>Posted: {node.frontmatter.date}</p>
+            <p>excerpt: {node.excerpt}</p>
+          </article>
+        ))
+      }
     </Layout>
   );
 };
 
 //2 truy vấn ở bên ngoài khối Blogpage và truyền dữ liệu thông qua data props
-export const query = graphql`
+// export const query = graphql`
+//   query {
+//     allFile(filter: {sourceInstanceName: {eq: "blog"}}) {
+//       nodes {
+//         name
+//       }
+//     }
+//   }
+// `
+// sắp xếp giảm dần date, định dạng day MMMM D, YYYY ; excerpt: trích xuất ra nội dung 
+export const query1 = graphql`
   query {
-    allFile(filter: {sourceInstanceName: {eq: "blog"}}) {
+    allMdx(sort: { frontmatter: { date: DESC }}) {
       nodes {
-        name
+        frontmatter {
+          date(formatString: "MMMM D, YYYY")
+          title
+        }
+        id
+        excerpt
       }
     }
   }
