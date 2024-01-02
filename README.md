@@ -33,5 +33,5 @@
 
 4.  **Deploy this starter with one click on [Netlify]**
 
-    site is now running at: https://658b91aca3f30300084460e2--peaceful-alpaca-90ef20.netlify.app/
+    site is now running at: https://demo-gastby-dgwa.netlify.app
 
